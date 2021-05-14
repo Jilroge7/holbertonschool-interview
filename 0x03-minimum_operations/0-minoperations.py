@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Method to determine number of minimum operations to complete a task
+method to count least number of operations to complete a task.
 """
 
 
