@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """
-method to count least number of operations to complete a task.
+Method to count least number of operations to complete a task.
 """
 
 
-def monOperations(n):
+def minOperations(n):
     """
     Only operations are copy and paste.
     Find the smallest number of operations needed to complete the task.
