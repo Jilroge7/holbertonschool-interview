@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Method to count least number of operations to complete a task.
+Method to find number of minimum operations to complete a task.
 """
 
 
@@ -12,7 +12,6 @@ def minOperations(n):
     n = number of times to print the letter H.
     if n is not possible, return 0
     """
-
     minOps = []
 
     if not isinstance(n, int) or n < 2:
@@ -23,7 +22,7 @@ def minOperations(n):
         n = n // 2
 
     for i in range(3, n + 1, 2):
-        while n % i = 0:
+        while n % i == 0:
             minOps.append(i)
             n = n // i
 
