@@ -19,23 +19,33 @@ if __name__ == "__main__":
         stat_dict[stat] = 0
     try:
         for line in sys.stdin:
-            if line == "":
+            try:
+                if line == "":
+                    pass
+                file_list = line.split(" ")
+                flist_length = len(file_list)
+                if flist_length != 9:
+                    pass
+                if file_list[-2] in codes:
+                    stat_dict[file_list[-2]] += 1
+                if file_list[-1][-1] == '\n':
+                    file_list[-1][:-1]
+                file_size += int(file_list[-1])
+            except:
                 pass
-            file_list = line.split(" ")
-            flist_length = len(file_list)
-            if flist_length < 9:
-                pass
-            line_num += 1
-            file_size += int(file_list[-1])
-            if line_num % 10 == 0:
-                print("File size: {}".format(file_size))
-                line_num = 0
-            for key, value in stat_dict.items():
-                if stat_dict[key] == file_list[7]:
-                    value += 1
-                    print("{}: {}".format(key, value))
-    except(KeyboardInterrupt):
+                line_num += 1
+                if line_num % 10 == 0:
+                    print("File size: {}".format(file_size))
+                    line_num = 0
+                for stat in sorted(stat_dict.keys()):
+                    if stat_dict[stat] != 0:
+                        print("{}: {}".format(stat, stat_dict[stat]))
+    except KeyboardInterrupt as error:
         for line in sys.stdin:
             if line_num % 10 == 0:
                 print("File size: {}".format(file_size))
-            line_num += 1
+                line_num += 1
+            for stat in sorted(stat_dict.keys()):
+                        if stat_dict[stat] != 0:
+                            print("{}: {}".format(stat, stat_dict[stat]))
+        raise
