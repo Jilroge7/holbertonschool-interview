@@ -11,17 +11,14 @@ if __name__ == "__main__":
     codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
     file_list = []
     stat_dict = {}
-    line_num = 0
     file_size = 0
-    line_regex = '.+ .+ \d+'
+    line_num = 0
 
     for stat in codes:
         stat_dict[stat] = 0
     try:
         for line in sys.stdin:
             try:
-                if line == "":
-                    pass
                 file_list = line.split(" ")
                 flist_length = len(file_list)
                 if flist_length != 9:
@@ -33,19 +30,19 @@ if __name__ == "__main__":
                 file_size += int(file_list[-1])
             except:
                 pass
-                line_num += 1
-                if line_num % 10 == 0:
-                    print("File size: {}".format(file_size))
-                    line_num = 0
+            line_num += 1
+            if line_num % 10 == 0:
+                print("File size: {}".format(file_size))
                 for stat in sorted(stat_dict.keys()):
                     if stat_dict[stat] != 0:
                         print("{}: {}".format(stat, stat_dict[stat]))
+        print("File size: {}".format(file_size))
+        for stat in sorted(stat_dict.keys()):
+            if stat_dict[stat] != 0:
+                print("{}: {}".format(stat, stat_dict[stat]))
     except KeyboardInterrupt as error:
-        for line in sys.stdin:
-            if line_num % 10 == 0:
-                print("File size: {}".format(file_size))
-                line_num += 1
-            for stat in sorted(stat_dict.keys()):
-                        if stat_dict[stat] != 0:
-                            print("{}: {}".format(stat, stat_dict[stat]))
+        print("File size: {}".format(file_size))
+        for stat in sorted(stat_dict.keys()):
+            if stat_dict[stat] != 0:
+                print("{}: {}".format(stat, stat_dict[stat]))
         raise
