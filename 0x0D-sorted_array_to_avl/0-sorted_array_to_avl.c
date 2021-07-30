@@ -11,17 +11,16 @@
 */
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-    avl_t *tree = NULL;
+	avl_t *tree = NULL;
 
-    if (array == NULL)
-        return (NULL);
+	if (array == NULL)
+		return (NULL);
 
-    return (build_avl_tree(tree, array, 0, size - 1));
+	return (build_avl_tree(tree, array, 0, size - 1));
 }
 
 /**
 * binary_tree_node - function
-* @parent: ptr to parent node of node to creat
 * @value: value to put in new node
 * Description: create a binary tree node
 * Return: New node or NULL on fail
@@ -52,19 +51,19 @@ avl_t *binary_tree_node(int value)
 */
 avl_t *build_avl_tree(avl_t *tree, int *array, int start, int end)
 {
-    size_t midpoint = (sizeof(array) / sizeof(int)) / 2;
-    avl_t *tempnode;
+	size_t midpoint = (sizeof(array) / sizeof(int)) / 2;
+	avl_t *tempnode;
 
-    if (start > end)
-        return (NULL);
+	if (start > end)
+		return (NULL);
 
-    tempnode = binary_tree_node(array[midpoint]);
-    if (tempnode == NULL)
-        return NULL;
+	tempnode = binary_tree_node(array[midpoint]);
+	if (tempnode == NULL)
+		return (NULL);
 
-    tempnode->parent = tree;
-    tempnode->left = build_avl_tree(tempnode, array, start, midpoint - 1);
-    tempnode->right = build_avl_tree(tempnode, array, midpoint + 1, end);
+	tempnode->parent = tree;
+	tempnode->left = build_avl_tree(tempnode, array, start, midpoint - 1);
+	tempnode->right = build_avl_tree(tempnode, array, midpoint + 1, end);
 
-    return (tempnode);
+	return (tempnode);
 }
