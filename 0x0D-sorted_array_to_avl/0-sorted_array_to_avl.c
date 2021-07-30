@@ -51,7 +51,7 @@ avl_t *binary_tree_node(int value)
 */
 avl_t *build_avl_tree(avl_t *tree, int *array, int start, int end)
 {
-	size_t midpoint = (sizeof(array) / sizeof(int)) / 2;
+	size_t midpoint = (start + end) / 2;
 	avl_t *tempnode;
 
 	if (start > end)
