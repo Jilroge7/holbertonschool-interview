@@ -12,10 +12,11 @@
 */
 void heap_sort(int *array, size_t size)
 {
-    int i;
+	int num_items = size;
+	int i;
 
-    for (i = 0; i < size; i++)
-	    max(array, size);
+	for (i = 0; i < num_items; i++)
+		max(array, size);
 }
 
 /**
@@ -27,10 +28,11 @@ void heap_sort(int *array, size_t size)
 */
 int max(int *array, size_t size)
 {
+	int num_items = size;
 	int i;
 	int max = array[0];
 
-	for (i = 1; i < size; i++)
+	for (i = 1; i < num_items; i++)
 	{
 		if (array[i] > max)
 			max = array[i];
@@ -48,8 +50,9 @@ int max(int *array, size_t size)
 */
 void sift_down(int *array, size_t size)
 {
-    int i;
+	int num_items = size;
+	int i;
 
-    for (i = 0; i < size; i++)
-	    print_array(array, size);
+	for (i = 0; i < num_items; i++)
+		print_array(array, size);
 }
