@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
-* merge_sort - sorts array of ints using merge sort algo
+* merge_sort - sorts array of ints using top sort function
 * @array: array to sort
 * @size: size of array to sort
 *
@@ -9,79 +9,81 @@
 */
 void merge_sort(int *array, size_t size)
 {
-	int start = 0;
-	int end = size - 1;
+	int *temp_arr;
 
 	if (size < 2 || array == NULL)
 		return;
 
-	top_sort(array, start, end, size);
-}
+	temp_arr = malloc(sizeof(int) * size);
+	if (temp_arr == NULL)
+		return;
 
+	top_sort(array, size, temp_arr);
+	free(temp_arr);
+}
 /**
 * top_sort - sorts the array before merging
 * @array: array to sort
-* @start: starting index (0)
-* @end: ending index
-* @size: size of array
-* Return: nothin
+* @size: size of array to sort
+* @temp_arr: temp array
 */
-void top_sort(int *array, int start, int end, size_t size)
+void top_sort(int *array, size_t size, int *temp_arr)
 {
-	int mid;
+	int mid = size / 2;
 
-	if (start < end)
-	{
-		mid = (start + end) / 2;
-		top_sort(array, start, mid, size);
-		top_sort(array, mid + 1, end, size);
-		merger(array, start, mid, end, size);
-	}
+	if (size <= 1)
+		return;
+	top_sort(array, mid, temp_arr);
+	top_sort(&array[mid], size - mid, temp_arr);
+	merger(array, temp_arr, mid, size);
 }
-
 /**
 * merger - function
 * @array: array to merger
-* @start: starting index (0)
+* @temp_arr: temp array
 * @mid: middle index of array
-* @end: ending index
 * @size: size of array
 * Description: does the merging of the now sorted sub-arrays
 * Returns: nothin
 */
-void merger(int *array, int start, int mid, int end, size_t size)
+void merger(int *array, int *temp_arr, int mid, size_t size)
 {
-	int *temp_arr;
-	int i, j, k;
-
-	k = 0;
-	i = start;
-	j = mid + 1;
-	temp_arr = malloc(sizeof(int) * size);
+	int left_idx = 0;
+	int index = 0;
+	int right_idx = mid;
 
 	printf("Merging...\n[left]: ");
-	print_array(array, start);
+	print_array(array, mid);
 	printf("[right]: ");
-	print_array((array + start), end);
-	while (i <= mid && j <= end)
+	print_array((&array[mid]), size - mid);
+	while (left_idx < mid && right_idx < (int)size)
 	{
-		if (array[i] < array[j])
-			temp_arr[k++] = array[i++];
+		if (array[left_idx] <= array[right_idx])
+		{
+			temp_arr[index] = array[left_idx];
+			left_idx++;
+		}
 		else
-			temp_arr[k++] = array[j++];
+		{
+			temp_arr[index] = array[right_idx];
+			right_idx++;
+		}
+		index++;
 	}
-
-	while (i <= mid)
-		temp_arr[k++] = array[i++];
-
-
-	while (j <= end)
-		temp_arr[k++] = array[j++];
-
-	for (i = end; i >= start; i--)
-		array[i] = temp_arr[--k];
-
-	free(temp_arr);
+	while (left_idx < mid)
+	{
+		temp_arr[index] = array[left_idx];
+		left_idx++;
+		index++;
+	}
+	while (right_idx < (int)size)
+	{
+		temp_arr[index] = array[right_idx];
+		right_idx++;
+		index++;
+	}
+	for (index = 0; index < (int)size; index++)
+		array[index] = temp_arr[index];
 
 	printf("[Done]: ");
 	print_array(array, size);
